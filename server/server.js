@@ -17,8 +17,8 @@ const app = express()
 
 // using middlewares
 
-// app.use(express.json())
-// app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser(process.env.JWT_SECRET))
 app.use(cors({
   origin: process.env.FRONTEND_URL,

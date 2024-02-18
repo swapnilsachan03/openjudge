@@ -7,8 +7,6 @@ export const register = catchAsyncError(async (req, res, next) => {
   const { name, email, password } = req.body;
   const file = req.file;
 
-  console.log(name, email, password)
-
   if (!name || !email || !password) {
     return next(new ErrorHandler(
       "Please enter your name, email and password", 400
