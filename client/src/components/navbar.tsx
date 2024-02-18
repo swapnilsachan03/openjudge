@@ -19,7 +19,7 @@ const NavLink: React.FC<NavLinkProps> = ({ href, children }) => {
 }
 
 const Navbar = () => {
-  const isAuthenticated = true;
+  const isAuthenticated = false;
 
   return (
     <nav className='w-full h-16 flex items-center justify-between p-8 bg-zinc-800 text-white'>
@@ -38,12 +38,12 @@ const Navbar = () => {
       <div className='flex flex-row gap-8'>
         { isAuthenticated ? (
           <>
-            <Link to='/login' className='flex items-center gap-2'>
+            <Link to='/profile' className='flex items-center gap-2'>
               <MdPerson size={20} />
               <p> Profile </p>
             </Link>
 
-            <Link to='/login' className='flex items-center gap-2'>
+            <Link to='/logout' className='flex items-center gap-2'>
               <MdLogout size={18} />
               <p> Logout </p>
             </Link>

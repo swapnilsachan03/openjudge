@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+import mongoose from "mongoose"
 
-const problemSchema = mongoose.Schema({
+const schema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
@@ -13,46 +13,58 @@ const problemSchema = mongoose.Schema({
 
   difficulty: {
     type: String,
+    enum: ["easy", "medium", "hard"],
     required: true,
   },
 
-  tags: {
-    type: [String],
-    required: true,
-  },
-
-  solution: {
+  topics: [{
     type: String,
     required: true,
-  },
-  
-  solutionLanguage: {
-    type: String,
-    required: true,
-  },
+  }],
 
-  solutionTime: {
+  testcases: [
+    {
+      input: {
+        type: String,
+        required: true,
+      },
+
+      output: {
+        type: String,
+        required: true,
+      },
+    }
+  ],
+
+  solutions: [
+    {
+      language: {
+        type: String,
+        enum: ["cpp", "java", "python"],
+        required: true,
+      },
+
+      code: {
+        type: String,
+        required: true,
+      },
+    }
+  ],
+
+  submissions: {
     type: Number,
-    required: true,
+    default: 0,
   },
 
-  solutionSpace: {
+  accepted: {
     type: Number,
-    required: true,
+    default: 0,
   },
 
-  solutionCode: {
-    type: String,
-    required: true,
+  createdAt: {
+    type: Date,
+    default: Date.now,
   },
+})
 
-  solutionInput: {
-    type: String,
-    required: true,
-  },
-
-  solutionOutput: {
-    type: String,
-    required: true,
-  }
-});
+export default mongoose.model("Problem", schema)

@@ -5,6 +5,8 @@ import Home from "./pages/home"
 import Problems from "./pages/problems"
 import About from "./pages/about"
 import Problem from "./pages/problem"
+import Login from "./pages/login"
+import Register from "./pages/register"
 
 function App() {
   return (
@@ -17,7 +19,12 @@ function App() {
           <Route path='/problems' element={<Problems/>} />
           <Route path='/about' element={<About/>} />
 
-          /* Problem routes */
+          { /* Authentication Routes */ }
+
+          <Route path='/login' element={<Login/>} />
+          <Route path='/register' element={<Register/>} />
+
+          {/* Problem Routes */}
 
           <Route path='/problem/:id' element={<Problem/>} />
           <Route path='/problem/:id/description' element={<Problem/>} />
