@@ -12,6 +12,11 @@ const schema = new mongoose.Schema({
       ref: "Problem",
     }
   ],
+
+  problemsCount: {
+    type: Number,
+    default: 0,
+  }
 })
 
 export default mongoose.model("Topic", schema)

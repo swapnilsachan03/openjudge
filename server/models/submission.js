@@ -26,6 +26,7 @@ const schema = new mongoose.Schema({
 
   verdict: {
     type: String,
+    enum: ["AC", "WA", "CE", "RE", "TLE", "MLE", "JE"],
     required: true,
   },
 

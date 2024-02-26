@@ -6,21 +6,43 @@ const schema = new mongoose.Schema({
     required: true,
   },
 
-  statement: {
+  description: {
     type: String,
     required: true,
   },
 
   difficulty: {
     type: String,
-    enum: ["easy", "medium", "hard"],
+    enum: ["Easy", "Medium", "Hard"],
     required: true,
   },
 
-  topics: [{
-    type: String,
-    required: true,
-  }],
+  topics: [
+    {
+      name: {
+        type: String,
+        required: true,
+      },
+
+      id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Topic",
+        required: true,
+      }
+    }
+  ],
+
+  constraints: {
+    time: {
+      type: Number,
+      required: true,
+    },
+    
+    memory: {
+      type: Number,
+      required: true,
+    }
+  },
 
   testcases: [
     {
@@ -65,6 +87,11 @@ const schema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+})
+
+schema.pre("deleteOne", async function(next) {
+  await this.model("Submission").deleteMany({ problem: this._id });
+  next();
 })
 
 export default mongoose.model("Problem", schema)

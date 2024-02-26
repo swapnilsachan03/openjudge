@@ -8,6 +8,7 @@ import { connectDB } from "./config/database.js"
 
 import user from "./routes/userRoutes.js"
 import problem from "./routes/problemRoutes.js"
+import submission from "./routes/submissionRoutes.js"
 
 dotenv.config({
   path: "./config/.env",
@@ -30,6 +31,7 @@ app.use(cors({
 
 app.use("/api", user)
 app.use("/api", problem)
+app.use("/api", submission)
 
 // connecting to & listening on the server
 

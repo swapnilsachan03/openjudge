@@ -39,19 +39,10 @@ const schema = new mongoose.Schema({
     },
   },
 
-  submissions: [
-    {
-      submission: {
-        type: [mongoose.Schema.Types.ObjectId],
-        ref: "Submission",
-      }
-    }
-  ],
-
   solvedProblems: [
     {
       problem: {
-        type: [mongoose.Schema.Types.ObjectId],
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Problem",
       }
     }
@@ -81,6 +72,11 @@ schema.pre("save", async function(next) {
   }
 
   this.password = await bcrypt.hash(this.password, 10);
+  next();
+})
+
+schema.pre("deleteOne", async function(next) {
+  await this.model("Submission").deleteMany({ user: this._id });
   next();
 })
 
