@@ -43,7 +43,7 @@ export const createTopic = catchAsyncError(async (req, res, next) => {
   })
 })
 
-const updateTopic = catchAsyncError(async (req, res, next) => {
+export const updateTopic = catchAsyncError(async (req, res, next) => {
   let topic = await Topic.findById(req.params._id)
 
   if (!topic) {
@@ -63,11 +63,7 @@ const updateTopic = catchAsyncError(async (req, res, next) => {
     runValidators: true
   })
 
-  const problems = await Problem.find({ topic: {
-    $elemMatch: {
-      id: topic._id
-    },
-  }})
+  const problems = await Problem.find({ 'topics.id': topic._id })
 
   problems.forEach(async problem => {
     problem.topics = problem.topics.map(t => {
@@ -94,7 +90,12 @@ export const deleteTopic = catchAsyncError(async (req, res, next) => {
     return next(new ErrorHandler("Topic not found", 404))
   }
 
-  // we need to remove the topic from the problems
+  const problems = await Problem.find({ 'topics.id': topic._id })
+
+  problems.forEach(async problem => {
+    problem.topics = problem.topics.filter(t => t.id !== topic._id)
+    await problem.save()
+  })
 
   await topic.remove()
 

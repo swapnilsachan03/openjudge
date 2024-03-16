@@ -6,6 +6,8 @@ import { catchAsyncError } from '../middlewares/catchAsyncError.js'
 export const getProblems = catchAsyncError(async (req, res, next) => {
   const problems = await Problem.find()
 
+  // get by difficulty, topics, etc.
+
   res.status(200).json({
     success: true,
     problems

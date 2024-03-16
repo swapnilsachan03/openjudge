@@ -6,13 +6,6 @@ const schema = new mongoose.Schema({
     required: true,
   },
 
-  problems: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Problem",
-    }
-  ],
-
   problemsCount: {
     type: Number,
     default: 0,
